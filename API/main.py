@@ -22,6 +22,10 @@ app.include_router(audit.router, prefix="/audit", tags=["Audit"])
 async def root():
     return {"message": "¡La API de Criptin está funcionando!"}
 
+@app.head("/")
+async def read_root_head():
+    return {}
+
 if __name__ == "__main__":
     import uvicorn
     port = int(os.getenv("PORT", 8000))
