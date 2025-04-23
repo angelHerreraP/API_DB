@@ -17,9 +17,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",  # Local frontend
-        "http://18.156.158.53:3000",  # Frontend public IP
-        "http://18.156.158.53",  # Add this to allow direct API calls
-        "http://35.227.183.65",  # Add this if the public IP is different
+        "https://your-frontend-domain.com",  # Replace with your frontend domain if applicable
+        "https://api-db-lckl.onrender.com",  # Backend public domain
     ],
     allow_credentials=True,
     allow_methods=["*"],
