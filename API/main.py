@@ -17,9 +17,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",  # Local frontend
-        "http://18.156.158.53",  # Render backend public IP
-        "http://18.156.42.200",  # Render backend public IP
-        "http://52.59.103.54"    # Render backend public IP
+        "http://18.156.158.53:3000",  # Frontend public IP
+        "http://your-frontend-domain.com",  # Replace with your frontend's domain if applicable
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -43,5 +42,5 @@ async def read_root_head():
 
 if __name__ == "__main__":
     import uvicorn
-    port = int(os.getenv("PORT", 8000))
-    uvicorn.run("API.main:app", host="0.0.0.0", port=port, reload=True)
+    port = int(os.getenv("PORT", 10000))  # Ensure the port is correct
+    uvicorn.run("API.main:app", host="0.0.0.0", port=port, reload=True)  # Bind to 0.0.0.0
