@@ -19,7 +19,11 @@ async def register_user(user: schemas.UserCreate, db: Session = Depends(get_db))
     if db_user:
         raise HTTPException(status_code=400, detail="Nombre de usuario ya registrado")
     hashed_password = hashing.hash_password(user.password)
-    db_user = models.User(username=user.username, password_hash=hashed_password, rol_id=user.rol_id)
+    db_user = models.User(
+        username=user.username,
+        password_hash=hashed_password,
+        rol_id=2  # Asignar el rol de vendor por defecto
+    )
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
