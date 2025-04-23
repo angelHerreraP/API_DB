@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from API.routes import auth, usuarios, roles, personal_data, audit
 from API.database import engine, Base
 from dotenv import load_dotenv
@@ -10,6 +11,20 @@ load_dotenv()
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",  # Local frontend
+        #"http://18.156.158.53",  # Render backend public IP
+        #"http://18.156.42.200",  # Render backend public IP
+        #"http://52.59.103.54"    # Render backend public IP
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Incluir los routers de las diferentes partes de la API
 app.include_router(roles.router, prefix="/roles", tags=["Roles"])
