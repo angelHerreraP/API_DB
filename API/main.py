@@ -42,5 +42,7 @@ async def read_root_head():
 
 if __name__ == "__main__":
     import uvicorn
+    for route in app.routes:
+        print(f"Path: {route.path}, Name: {route.name}, Methods: {route.methods}")
     port = int(os.getenv("PORT", 10000))  # Ensure the port is correct
     uvicorn.run("API.main:app", host="0.0.0.0", port=port, reload=True)  # Bind to 0.0.0.0
