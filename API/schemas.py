@@ -8,6 +8,9 @@ class RoleBase(BaseModel):
 class RoleCreate(RoleBase):
     pass
 
+class RoleUpdate(RoleBase):  # ¡Añade esta clase!
+    nombre: Optional[str] = None
+
 class Role(RoleBase):
     id: int
 
