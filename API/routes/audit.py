@@ -4,12 +4,12 @@ from typing import List
 
 from API import models, schemas
 from API.database import get_db
-from API.utils.dependencies import get_current_user  # Asumimos que tienes esta dependencia
+from API.utils.dependencies import get_current_user, get_admin_user  # Importamos get_admin_user
 
 router = APIRouter(
     prefix="/audit",
     tags=["Audit"],
-    dependencies=[Depends(get_current_user)],  # Protegemos estas rutas
+    dependencies=[Depends(get_admin_user)],  # Solo administradores pueden acceder
 )
 
 @router.get("/", response_model=List[schemas.AuditLog])
