@@ -19,6 +19,7 @@ app.add_middleware(
         "http://localhost:3000",  # Local frontend
         "http://18.156.158.53:3000",  # Frontend public IP
         "http://18.156.158.53",  # Add this to allow direct API calls
+        "http://35.227.183.65",  # Add this if the public IP is different
     ],
     allow_credentials=True,
     allow_methods=["*"],
