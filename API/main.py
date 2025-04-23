@@ -17,9 +17,9 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",  # Local frontend
-        #"http://18.156.158.53",  # Render backend public IP
-        #"http://18.156.42.200",  # Render backend public IP
-        #"http://52.59.103.54"    # Render backend public IP
+        "http://18.156.158.53",  # Render backend public IP
+        "http://18.156.42.200",  # Render backend public IP
+        "http://52.59.103.54"    # Render backend public IP
     ],
     allow_credentials=True,
     allow_methods=["*"],
