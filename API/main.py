@@ -18,7 +18,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",  # Local frontend
         "http://18.156.158.53:3000",  # Frontend public IP
-        "http://your-frontend-domain.com",  # Replace with your frontend's domain if applicable
+        "http://18.156.158.53",  # Add this to allow direct API calls
     ],
     allow_credentials=True,
     allow_methods=["*"],
