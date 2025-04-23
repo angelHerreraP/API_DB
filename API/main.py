@@ -12,10 +12,10 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 # Incluir los routers de las diferentes partes de la API
-app.include_router(roles.router)
-app.include_router(usuarios.router)
+app.include_router(roles.router, prefix="/roles", tags=["Roles"])
+app.include_router(usuarios.router, prefix="/users", tags=["Users"])
 app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
-app.include_router(personal_data.router, prefix="/api", tags=["Personal Data"])
+app.include_router(personal_data.router, prefix="/personal_data", tags=["Personal Data"])
 app.include_router(audit.router, prefix="/audit", tags=["Audit"])
 
 @app.get("/")

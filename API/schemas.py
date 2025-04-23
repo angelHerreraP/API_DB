@@ -15,7 +15,7 @@ class Role(RoleBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True  # Actualizado para Pydantic v2
 
 class UserBase(BaseModel):
     username: str
@@ -33,7 +33,7 @@ class User(UserBase):
     role: Role
 
     class Config:
-        orm_mode = True
+        from_attributes = True  # Actualizado para Pydantic v2
 
 class PersonalDataBase(BaseModel):
     usuario_id: int
@@ -47,7 +47,7 @@ class PersonalData(PersonalDataBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True  # Actualizado para Pydantic v2
 
 class PersonalDataUpdate(BaseModel):
     dni: Optional[str] = None
@@ -67,7 +67,7 @@ class AuditLog(AuditLogBase):
     usuario: User
 
     class Config:
-        orm_mode = True
+        from_attributes = True  # Actualizado para Pydantic v2
 
 class Token(BaseModel):
     access_token: str
