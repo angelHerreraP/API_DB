@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 from typing import List
 from API import schemas
 
-
 from API import models
 from API.database import get_db
 from API.utils.dependencies import get_current_user  # Asumimos que tienes esta dependencia
