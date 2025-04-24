@@ -22,7 +22,7 @@ async def register_user(user: schemas.UserCreate, db: Session = Depends(get_db))
     db_user = models.User(
         username=user.username,
         password_hash=hashed_password,
-        rol_id=2  # Asignar el rol de vendor por defecto
+        rol_id=user.rol_id  # Usa el rol_id recibido
     )
     db.add(db_user)
     db.commit()
