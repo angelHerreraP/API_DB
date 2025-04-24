@@ -34,13 +34,28 @@ async def login_user(request: Request, form_data: OAuth2PasswordRequestForm = De
     user = db.query(models.User).filter(models.User.username == form_data.username).first()
     ip_address = request.client.host
 
-    if not user:
-        raise HTTPException(status_code=400, detail="Nombre de usuario o contraseña incorrectos")
-
-    if not hashing.verify_password(form_data.password, user.password_hash):
+    if not user or not hashing.verify_password(form_data.password, user.password_hash):
+        audit_log = models.AuditLog(
+            usuario_id=user.id if user else None,
+            accion="login_fallido",
+            fecha=datetime.utcnow(),
+            ip=ip_address
+        )
+        db.add(audit_log)
+        db.commit()
         raise HTTPException(status_code=400, detail="Nombre de usuario o contraseña incorrectos")
 
     access_token = jwt.create_access_token(data={"sub": user.username})
+
+    audit_log = models.AuditLog(
+        usuario_id=user.id,
+        accion="login_exitoso",
+        fecha=datetime.utcnow(),
+        ip=ip_address
+    )
+    db.add(audit_log)
+    db.commit()
+
     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.get("/users/me", response_model=schemas.User)

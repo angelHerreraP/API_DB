@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from API.routes import auth, usuarios, roles, personal_data, audit
+from API.routes import auth, usuarios, roles, audit
 from API.database import engine, Base
 from dotenv import load_dotenv
 import os
@@ -29,7 +29,6 @@ app.add_middleware(
 app.include_router(roles.router, prefix="/roles", tags=["Roles"])
 app.include_router(usuarios.router, prefix="/users", tags=["Users"])
 app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
-app.include_router(personal_data.router, prefix="/personal_data", tags=["Personal Data"])
 app.include_router(audit.router, prefix="/audit", tags=["Audit"])
 
 @app.get("/")

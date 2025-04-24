@@ -35,24 +35,6 @@ class User(UserBase):
     class Config:
         from_attributes = True  # Actualizado para Pydantic v2
 
-class PersonalDataBase(BaseModel):
-    usuario_id: int
-    dni: str
-    telefono: str
-
-class PersonalDataCreate(PersonalDataBase):
-    pass
-
-class PersonalData(PersonalDataBase):
-    id: int
-
-    class Config:
-        from_attributes = True  # Actualizado para Pydantic v2
-
-class PersonalDataUpdate(BaseModel):
-    dni: Optional[str] = None
-    telefono: Optional[str] = None
-
 class AuditLogBase(BaseModel):
     usuario_id: int
     accion: str
