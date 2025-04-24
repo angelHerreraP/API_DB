@@ -1,35 +1,40 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from API.routes import auth, usuarios, roles, audit
+
+# Cambia estos imports:
+# from API.routes import auth, usuarios, roles, audit
+import API.routes.auth
+import API.routes.usuarios
+import API.routes.roles
+import API.routes.audit
+
 from API.database import engine, Base
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-# Crear las tablas de la base de datos al inicio (solo si no existen)
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:3000",  # Local frontend
-        "https://your-frontend-domain.com",  # Replace with your frontend domain if applicable
-        "https://api-db-lckl.onrender.com",  # Backend public domain
+        "http://localhost:3000",
+        "https://your-frontend-domain.com",
+        "https://api-db-lckl.onrender.com",
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Incluir los routers de las diferentes partes de la API
-app.include_router(roles.router, prefix="/roles", tags=["Roles"])
-app.include_router(usuarios.router, prefix="/users", tags=["Users"])
-app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
-app.include_router(audit.router, prefix="/audit", tags=["Audit"])
+# Usa los routers importados explícitamente
+app.include_router(API.routes.roles.router)
+app.include_router(API.routes.usuarios.router)
+app.include_router(API.routes.auth.router)
+app.include_router(API.routes.audit.router)
 
 @app.get("/")
 async def root():
@@ -50,5 +55,5 @@ if __name__ == "__main__":
     import uvicorn
     for route in app.routes:
         print(f"Path: {route.path}, Name: {route.name}, Methods: {route.methods}")
-    port = int(os.getenv("PORT", 10000))  # Ensure the port is correct
-    uvicorn.run("API.main:app", host="0.0.0.0", port=port, reload=True)  # Bind to 0.0.0.0
+    port = int(os.getenv("PORT", 10000))
+    uvicorn.run("API.main:app", host="0.0.0.0", port=port, reload=True)
