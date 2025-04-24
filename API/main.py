@@ -24,6 +24,7 @@ app.add_middleware(
         "http://localhost:3000",
         "https://your-frontend-domain.com",
         "https://api-db-lckl.onrender.com",
+        "https://crplg.netlify.app",  # <--- agrega tu dominio de Netlify aquí
     ],
     allow_credentials=True,
     allow_methods=["*"],
