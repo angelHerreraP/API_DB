@@ -39,6 +39,13 @@ async def root():
 async def read_root_head():
     return {}
 
+@app.get("/routes")
+async def list_routes():
+    return [
+        {"path": route.path, "methods": list(route.methods)}
+        for route in app.routes
+    ]
+
 if __name__ == "__main__":
     import uvicorn
     for route in app.routes:
